@@ -77,7 +77,9 @@ extension CURLRequest.Option {
 		case .addHeader(let optName, let optValue):
 			headerAdd(curl, optName: optName, optValue: optValue)
 		case .addHeaders(let optArray):
-			optArray.forEach { self.headerAdd(curl, optName: $0, optValue: $1) }
+            optArray.forEach { header in
+                self.headerAdd(curl, optName: header.0, optValue: header.1)
+            }
 		case .replaceHeader(let optName, let optValue):
 			curl.setOption(CURLOPT_HTTPHEADER, s: "\(optName.standardName):")
 			headerAdd(curl, optName: optName, optValue: optValue)
